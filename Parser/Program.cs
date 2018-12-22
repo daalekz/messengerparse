@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-
 using AngleSharp;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,37 +26,65 @@ namespace Parser
             String uinput = Console.ReadLine();
 
             Console.WriteLine("Processing File...");
-            System.Threading.Thread.Sleep(1000);
+           // System.Threading.Thread.Sleep(1000);
 
             String _mysource = Class2.Run(@uinput); //pull the contents of the file into a string variable 
 
 
             var document = parser.Parse(_mysource); //parse the string variable through AngleSharp
 
+            //var listitemsLinq = document.All.Where(m => m.LocalName == "_3-94 _2lem");
+            //foreach (var item in listitemsLinq)
+            //{
+            //    Console.WriteLine(item.GetAttribute("div") + "\n");
+            //}
+
+            var context = BrowsingContext.New();
+            var div = document.Body.QuerySelector("div");
+            Console.WriteLine(div.ChildNodes.Length);
+
+            foreach (var child in div.ChildNodes )
+            {
+                Console.WriteLine(child.NodeName);
+                Console.WriteLine(child.TextContent);
+            }
+
+
+
 
             //Do something with document like the following
             //TODO use anglesharp to select the message elements, extract the contents to a temporary variable, and then add them to their appropriate list.
-
+            Console.WriteLine("-------------------------------------------------");
+            Console.ReadKey();
             Console.WriteLine("Serializing the (original) document:");
             Console.WriteLine(document.DocumentElement.OuterHtml);
 
 
-            List<String> memberList = new List<String>();
-            foreach(String s in memberList)
-            {
-                //create a list for each person in the memberlist- named by the string inside the memberlist element it corresponds to.
-            }
+            ////List<String> memberList = new List<String>();
+            ////foreach(string s in memberList)
+            ////{
+
+            ////    List<String> s = new List<string>();
+            ////    //create a list for each person in the memberlist- named by the string inside the memberlist element it corresponds to.
+            ////}
+            ///
+            List<string> messageList = new List<string>();
+            String thismsg = "jkfdj";
+
             //Currently only one list for all messsages in a chat- could seperate this out into lists per chat participant- extensible to group chats
             //TODO find a way to get a list of all the members of a group chat and create a list for each member of that chat.
             //list of lists??
 
+            foreach(string s in messageList) //foreach result of the anglesharp query, add its result to a list of messages )
+            {
+                 messageList.Add(thismsg);
+                //create a list for each person in the memberlist- named by the string inside the memberlist element it corresponds to.
+            }
 
-
-
-            Console.ReadKey();
+         Console.ReadKey();
         }
     }
-public class StringHandler
+public class StringHandler 
 {
     public List<String> _items;
 
@@ -68,7 +95,7 @@ public class StringHandler
             string output = "";
             foreach (String i in _items)
             {
-                output += i +"\n";
+                output += i +"\n"; //print every message in the list. 
             }
             return output;
         }

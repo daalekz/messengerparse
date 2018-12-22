@@ -12,8 +12,10 @@ namespace Parser
         public static String Run(String f)
         {
         try
-        {   // Open the text file using a stream reader.
+        {
+                // Open the text file using a stream reader.
             using (StreamReader sr = new StreamReader(f))
+            
             {
             // Read the stream to a string, and write the string to the console.
                 String line = sr.ReadToEnd();
@@ -21,11 +23,12 @@ namespace Parser
                 return line;
             }
         }
-        catch (Exception e)
+        catch (Exception) //TODO fix file validation possibly add filenotfoundexception
         {
             Console.WriteLine("The file could not be read:");
-            Console.WriteLine(e.Message);
+            //Console.WriteLine(IOException.Message);
                 return null;
+                //stop running the parent code here. 
             }
         }
         public Class2()
